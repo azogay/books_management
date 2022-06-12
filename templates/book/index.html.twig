@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}List Books{% endblock %}
+
+{% block body %}
+
+<div class="m-4 text-center">
+    <h1 class=" fw-bold text-primary text-uppercase " ><i class="fa fa-book primary " style="font-size:48px"></i>List books</h1>
+</div>
+
+    <table class="table ">
+        <thead>
+            <tr class="fs-5">
+                <th>Id</th>
+                <th>Reference</th>
+                <th>Name</th>
+                <th>Author</th>
+                <th>Review</th>
+                <th>Note</th>
+                <th>CreationDate</th>
+                <th>ModificationDate</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for book in books %}
+            <tr class="fs-6">
+                <td>{{ book.id }}</td>
+                <td>{{ book.reference }}</td>
+                <td>{{ book.name }}</td>
+                <td>{{ book.author }}</td>
+                <td>{{ book.review }}</td>
+                <td>{{ book.note }}</td>
+                <td>{{ book.creationDate ? book.creationDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ book.modificationDate ? book.modificationDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_book_show', {'id': book.id}) }}" class="fw-bold ">show</a>
+                    <a href="{{ path('app_book_edit', {'id': book.id}) }}" class="fw-bold ">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+<div class="text-center ">
+    <a type="button" class="btn btn-primary col-3 fs-4 m-4 " href="{{ path('app_book_new') }}">Create new</a>
+</div>
+    
+{% endblock %}
